@@ -1,0 +1,31 @@
+{% extends "hr_web_app/base.html" %}
+{% load static %}
+
+{% block header %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        Delete {{ team_member.first_name }} {{ team_member.last_name }}
+    </h1>
+    <a href="{% url 'hr_web_app:team_members' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Cancel</a>
+</div>
+{% endblock %}
+
+{% block page_content %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Confirm Deletion</h6>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <form action="{% url 'hr_web_app:delete_team_member' team_member.id %}" method="post">
+                {% csrf_token %}
+                <h6>Are you sure you want to delete {{ team_member.first_name }} {{ team_member.last_name }}?</h6>
+                <button name="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Yes</button>
+                <a href="{% url 'hr_web_app:team_members' %}" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm">No</a>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

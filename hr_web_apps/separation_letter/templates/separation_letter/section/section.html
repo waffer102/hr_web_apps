@@ -1,0 +1,71 @@
+{% extends "hr_web_app/base.html" %}
+{% load static %}
+
+{% block header %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Letter Sections</h1>
+    <a href="{% url 'separation_letter:new_section' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Create New</a>
+</div>
+{% endblock %}
+
+{% block page_content %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">List of Letter Sections</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                <tr>
+                    <th>Section Name</th>
+                    <th>Standard Text</th>
+                    <th>Sub-Template</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Options</th>
+                </tr>
+                </thead>
+                <tfoot>
+                <tr>
+                    <th>Section Name</th>
+                    <th>Standard Text</th>
+                    <th>Sub-Template</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Options</th>
+                </tr>
+                </tfoot>
+                <tbody>
+                {% for section in sections %}
+                <tr>
+                    <td>{{ section.name }}</td>
+                    <td>{{ section.standard_text }}</td>
+                    <td>{{ section.subtemplate_indicator }}</td>
+                    <td>{{ section.category.name }}</td>
+                    <td>{{ section.get_status_display }}</td>
+                    <td>
+                        <a href="{% url 'separation_letter:view_section' section.id %}" class="btn btn-success btn-circle btn-sm"><i class="fas fa-eye"></i></a>
+                        <a href="{% url 'separation_letter:edit_section' section.id %}" class="btn btn-warning btn-circle btn-sm"><i class="fas fa-edit" style="color:white"></i></a>
+                        <a href="{% url 'separation_letter:delete_section' section.id %}" class="btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block custom_styles %}
+    <link href="{% static 'css/dataTables.bootstrap4.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block custom_scripts %}
+    <script src="{% static 'js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'js/datatables-custom.js' %}"></script>
+{% endblock %}

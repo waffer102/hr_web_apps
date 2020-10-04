@@ -1,0 +1,65 @@
+{% extends "hr_web_app/base.html" %}
+{% load static %}
+
+{% block header %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        {{ team_member }}
+        <a href="{% url 'hr_web_app:edit_team_member' team_member.id %}"><i class="fas fa-pencil-alt fa-sm"></i></a>
+    </h1>
+    <a href="{% url 'hr_web_app:team_members' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List</a>
+</div>
+{% endblock %}
+
+{% block page_content %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">View Information</h6>
+    </div>
+    <div class="card-body">
+        <h6 class="m-0 font-weight-bold text-primary">Associate ID</h6>
+        {{ team_member.associate_id }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Work Email</h6>
+        {{ team_member.work_email }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Job Title</h6>
+        {{ team_member.job_title }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Home Department</h6>
+        {{ team_member.homedepartment }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Business Unit</h6>
+        {{ team_member.homedepartment.businessunit }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Hire Date</h6>
+        {{ team_member.hire_date }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Rehire Date</h6>
+        {{ team_member.rehire_date }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Separation Date</h6>
+        {{ team_member.separation_date }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Reports To</h6>
+        {{ team_member.reports_to }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">FLSA</h6>
+        {{ team_member.get_flsa_display }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Pay Type</h6>
+        {{ team_member.get_pay_type_display }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Worker Category</h6>
+        {{ team_member.get_worker_category_display }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Time Off Available</h6>
+        {{ team_member.get_time_off_available_display }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Status</h6>
+        {{ team_member.get_status_display }}
+    </div>
+</div>
+
+{% endblock %}

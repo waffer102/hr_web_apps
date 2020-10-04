@@ -1,0 +1,62 @@
+{% extends "hr_web_app/base.html" %}
+{% load static %}
+
+{% block header %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-4 text-gray-800">Separation Letter Editor {{ letter_order }}</h1>
+        <a href="" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">Save and Download
+            <i class="fas fa-download fa-sm text-white-50"></i></a>
+    </div>
+{% endblock %}
+
+{% block page_content %}
+          <div class="row">
+            <div class="col-lg-3 mb-4">
+              <div class="card mb-4">
+                <div class="card-header">
+                  Letter Information
+                </div>
+                <div class="card-body">
+                  <h6 class="m-0 font-weight-bold text-primary">Employee Name</h6>
+                  {{ team_member.first_name }} {{ team_member.last_name }}
+                  <hr>
+                  <h6 class="m-0 font-weight-bold text-primary">Letter Date</h6>
+                  {{ letter_date }}
+                  <hr>
+                  <h6 class="m-0 font-weight-bold text-primary">Separation Date</h6>
+                  {{ separation_date }}
+                  <hr>
+                  <h6 class="m-0 font-weight-bold text-primary">Company Name</h6>
+                  {{ team_member.homedepartment.businessunit }}
+                  <hr>
+                  <h6 class="m-0 font-weight-bold text-primary">Department</h6>
+                  {{ team_member.homedepartment }}
+                  <hr>
+                  <h6 class="m-0 font-weight-bold text-primary">HR Representative</h6>
+                  {{ hr_user.first_name }} {{ hr_user.last_name }}
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-9 mb-4">
+              <div class="card mb-4">
+                <div class="card-header">
+                  Separation Letter Editor
+                </div>
+                <div class="card-body">
+                    <div id="editor">
+                        {{ parsed_text|safe }}
+                    </div>
+                </div>
+              </div>
+            </div>
+          </div>
+{% endblock %}
+
+{% block custom_styles %}
+    <link href="{% static 'css/jodit.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block custom_scripts %}
+    <script src="{% static 'js/jodit.min.js' %}"></script>
+    <script>var editor = new Jodit("#editor");</script>
+{% endblock %}

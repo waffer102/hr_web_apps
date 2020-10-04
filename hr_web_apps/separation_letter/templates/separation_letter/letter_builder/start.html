@@ -1,0 +1,98 @@
+{% extends "hr_web_app/base.html" %}
+{% load static %}
+
+{% block header %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-4 text-gray-800">Start Separation Letter</h1>
+        <button type="submit" form="start_form" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">Next Step -
+            Build Letter <i class="fas fa-arrow-right fa-sm text-white-50"></i></button>
+    </div>
+{% endblock %}
+
+{% block page_content %}
+
+    <div class="row">
+
+        <div class="col-lg-6 mb-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Letter Information
+                </div>
+                <div class="card-body">
+                    <h6 class="m-0 font-weight-bold text-primary">Who is the team member?</h6>
+                    <div class="form-group">
+                        <form action="{% url 'separation_letter:builder_start' %}" method="post" id="start_form">
+                        {% csrf_token %}
+                        <select class="form-control form-control-user select-box" name="team_member_selection">
+                            {% for team_member in team_members %}
+                                <option value="{{ team_member.id }}">{{ team_member.first_name }} {{ team_member.last_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">What date do you want listed on the letter?</h6>
+                    <div class="form-group">
+                        <input type="date" class="form-control form-control-user" name="letter_date" placeholder="Choose a date...">
+                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">What is the separation date?</h6>
+                    <div class="form-group">
+                        <input type="date" class="form-control form-control-user" name="separation_date" placeholder="Choose a date...">
+                    </div>
+                    <h6 class="m-0 font-weight-bold text-primary">Which HR team member should be listed on the
+                        letter?</h6>
+                    <div class="form-group">
+                        <select class="form-control form-control-user select-box" name="hr_user_selection">
+                            {% for hr_user in hr_users %}
+                                <option value="{{ hr_user.id }}">{{ hr_user.first_name }} {{ hr_user.last_name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-6 mb-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    Selected Team Member Information
+                </div>
+                <div class="card-body">
+                    <h6 class="m-0 font-weight-bold text-primary">Name</h6>
+                    <div id="tm_name">Not implemented yet.</div>
+                    <hr>
+                    <h6 class="m-0 font-weight-bold text-primary">Company</h6>
+                    <div id="tm_company">Not implemented yet.</div>
+                    <hr>
+                    <h6 class="m-0 font-weight-bold text-primary">Department</h6>
+                    <div id="tm_department">Not implemented yet.</div>
+                    <hr>
+                    <h6 class="m-0 font-weight-bold text-primary">Job Title</h6>
+                    <div id="tm_title">Not implemented yet.</div>
+                    <hr>
+                    <h6 class="m-0 font-weight-bold text-primary">Location</h6>
+                    <div id="tm_location">Not implemented yet.</div>
+                    <hr>
+                    <h6 class="m-0 font-weight-bold text-primary">Hire Date</h6>
+                    <div id="tm_hire_date">Not implemented yet.</div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block custom_styles %}
+    <link href="{% static 'css/select2.min.css' %}" rel="stylesheet" />
+{% endblock %}
+
+{% block custom_scripts %}
+    <script src="{% static 'js/select2.min.js' %}"></script>
+
+    <script>
+        $(document).ready(function() {
+        $('.select-box').select2();
+        });
+    </script>
+
+{% endblock %}

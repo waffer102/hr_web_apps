@@ -1,0 +1,50 @@
+{% extends "hr_web_app/base.html" %}
+{% load static %}
+
+{% block header %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        {{ homedepartment.name }}
+        <a href="{% url 'hr_web_app:edit_homedepartment' homedepartment.id %}"><i class="fas fa-pencil-alt fa-sm"></i></a>
+    </h1>
+    <a href="{% url 'hr_web_app:homedepartment' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List</a>
+</div>
+{% endblock %}
+
+{% block page_content %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">View Information</h6>
+    </div>
+    <div class="card-body">
+        <h6 class="m-0 font-weight-bold text-primary">Code</h6>
+        {{ homedepartment.code }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Number</h6>
+        {{ homedepartment.number }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Business Unit</h6>
+        {{ homedepartment.businessunit }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Pillar</h6>
+        {{ homedepartment.get_pillar_display }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">TA Category</h6>
+        {{ homedepartment.get_ta_category_display }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">TA Company</h6>
+        {{ homedepartment.get_ta_company_display }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Created On</h6>
+        {{ homedepartment.date_added }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Last Modified</h6>
+        {{ homedepartment.date_modified }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Status</h6>
+        {{ homedepartment.get_status_display }}
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "hr_web_app/base.html" %}
+{% load static %}
+
+{% block header %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        Create Section
+    </h1>
+    <a href="{% url 'separation_letter:section' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Cancel</a>
+</div>
+{% endblock %}
+
+{% block page_content %}
+<div class="row">
+
+    <div class="col-lg-9 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Enter Information</h6>
+            </div>
+            <div class="card-body">
+                <div class="form-group">
+                    <form action="{% url 'separation_letter:new_section' %}" method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button name="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 mb-4">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Available Tags</h6>
+            </div>
+            <div class="card-header py-1">
+                <h6 class="m-0 font-weight-bold text-info">Section Tags</h6>
+            </div>
+            {% for tag in tag_list %}
+                <div class="list-group-item">
+                    [[{{ tag }}]]
+                </div>
+            {% endfor %}
+            <div class="card-header py-1">
+                <h6 class="m-0 font-weight-bold text-info">User Info Tags</h6>
+            </div>
+                <div class="list-group-item">
+                    &#123;&#123;Letter Date&#125;&#125;
+                </div>
+                <div class="list-group-item">
+                    &#123;&#123;Employee Name&#125;&#125;
+                </div>
+                <div class="list-group-item">
+                    &#123;&#123;Company Name&#125;&#125;
+                </div>
+                <div class="list-group-item">
+                    &#123;&#123;Separation Date&#125;&#125;
+                </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block custom_styles %}
+    <link href="{% static 'css/jodit.min.css' %}" rel="stylesheet">
+{% endblock %}
+
+{% block custom_scripts %}
+    <script src="{% static 'js/jodit.min.js' %}"></script>
+    <script>var editor = new Jodit("#id_paragraph_text");</script>
+{% endblock %}

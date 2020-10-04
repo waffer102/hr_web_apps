@@ -1,0 +1,38 @@
+{% extends "hr_web_app/base.html" %}
+{% load static %}
+
+{% block header %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        {{ businessunit.name }}
+        <a href="{% url 'hr_web_app:edit_businessunit' businessunit.id %}"><i class="fas fa-pencil-alt fa-sm"></i></a>
+    </h1>
+    <a href="{% url 'hr_web_app:businessunit' %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Back to List</a>
+</div>
+{% endblock %}
+
+{% block page_content %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">View Information</h6>
+    </div>
+    <div class="card-body">
+        <h6 class="m-0 font-weight-bold text-primary">Code</h6>
+        {{ businessunit.code }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Payroll Company</h6>
+        {{ businessunit.payrollcompany }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Created On</h6>
+        {{ businessunit.date_added }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Last Modified</h6>
+        {{ businessunit.date_modified }}
+        <hr>
+        <h6 class="m-0 font-weight-bold text-primary">Status</h6>
+        {{ businessunit.get_status_display }}
+    </div>
+</div>
+
+{% endblock %}

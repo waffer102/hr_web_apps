@@ -1,0 +1,63 @@
+{% extends "hr_web_app/base.html" %}
+{% load static %}
+
+{% block header %}
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-4 text-gray-800">Separation Letter Builder - {{ session_data.team_member_selection }}</h1>
+        <form action="{% url 'separation_letter:builder_builder' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" id="letter_order[]" name="letter_order" />
+            <button type="submit" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">Next Step -
+                Edit Text <i class="fas fa-arrow-right fa-sm text-white-50"></i></button>
+        </form>
+    </div>
+{% endblock %}
+
+{% block page_content %}
+          <div class="row">
+
+            <div class="col-lg-3 mb-4">
+
+              <div id="toolBox" class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Letter Sections</h6>
+                </div>
+                {% for letter_category in letter_categories %}
+                <div class="card-header py-1">
+                  <h6 class="m-0 font-weight-bold text-info">{{ letter_category }}</h6>
+                </div>
+
+                    {% for letter_section in letter_sections %}
+                        {% if letter_section.category.name == letter_category %}
+                          <div class="list-group-item dragme" data-id="{{ letter_section.id }}">
+                            <div class="toolboxText" style="display: block">{{ letter_section.name }}</div>
+                            <div class="letterboxText" style="display: none">{{ letter_section.paragraph_text|safe }}</div>
+                          </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+
+              </div>
+
+            </div>
+
+            <div class="col-lg-9 mb-4">
+
+              <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                  <h6 class="m-0 font-weight-bold text-primary">Letter</h6>
+                </div>
+                <div id="letterBox" class="card-body">
+
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+{% endblock %}
+
+{% block custom_scripts %}
+    <script src="{% static 'js/sortable.min.js' %}"></script>
+    <script src="{% static 'js/sortable-script.js' %}"></script>
+{% endblock %}

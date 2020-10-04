@@ -1,0 +1,30 @@
+{% extends "hr_web_app/base.html" %}
+{% load static %}
+
+{% block header %}
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        {{ category.name }}
+    </h1>
+    <a href="{% url 'separation_letter:view_category' category.id %}" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-arrow-left fa-sm text-white-50"></i> Cancel</a>
+</div>
+{% endblock %}
+
+{% block page_content %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Edit Information</h6>
+    </div>
+    <div class="card-body">
+        <div class="form-group">
+            <form action="{% url 'separation_letter:edit_category' category.id %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button name="submit" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
